@@ -1,0 +1,40 @@
+name: CI Golden Movie Studio
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Subir containers com docker-compose
+        run: docker compose up -d --build
+
+      - name: Aguardar serviços subirem
+        run: sleep 10
+
+      - name: Instalar dependências do Cypress
+        working-directory: tests
+        run: npm install
+
+      - name: Executar testes E2E com Cypress
+        working-directory: tests
+        run: npx cypress run
+
+      - name: Salvar evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-cypress
+          path: tests/cypress/
+
+      - name: Derrubar containers
+        if: always()
+        run: docker compose down
