@@ -7,6 +7,6 @@ module.exports = defineConfig({
     },
     baseUrl: 'http://localhost:8080',
     chromeWebSecurity: false,
-    //video: true
+    video: true
   },
 });

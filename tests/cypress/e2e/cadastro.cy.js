@@ -4,6 +4,10 @@ describe('Cadastro de Usuário', () => {
     cy.visit('/')
   });
 
+  afterEach(() => {
+    cy.screenshot()
+  });
+
   it('Deve fazer cadastro com sucesso', () => {
     let email = `usuario${Date.now()}@example.com`;
     cy.get('#signup-firstname').type('Fabio');

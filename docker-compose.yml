@@ -1,0 +1,66 @@
+services:
+  backend:
+
+    build: ./golden-movie-studio-backend
+
+    container_name: gms-backend
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+
+    networks:
+      - gms-network 
+
+  frontend:
+
+    build: ./golden-movie-studio-frontend
+
+    container_name: gms-frontend
+
+    ports: 
+      - "8080:8080"
+
+    environment:
+      - PORT=8080
+
+    depends_on:
+      - backend
+
+    networks:
+      - gms-network 
+
+  cypress:
+
+    build: ./tests
+
+    container_name: gms-cypress
+
+    depends_on:
+      - backend
+      - frontend
+
+    networks:
+      - gms-network
+
+    volumes:
+      - ./cypress-videos:/app/cypress/videos
+      - ./cypress-screenshots:/app/cypress/screenshots
+
+    environment:
+      - CYPRESS_BASE_URL=http://frontend:8080
+      - CYPRESS_API_URL=http://backend:3000
+
+networks:
+
+  gms-network:
+
+    driver: bridge
+
+
+
+
+
