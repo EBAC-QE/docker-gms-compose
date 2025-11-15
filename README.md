@@ -105,10 +105,8 @@ GMS/
 │   ├── package.json
 │   └── Dockerfile
 │
-├── docker-compose.yml                # Orquestração dos containers
-├── GUIA-RAPIDO.md                   # Guia rápido em PT-BR
+├── docker-compose.yml                # Orquestração dos containers ( você vai criar em aula)
 ├── README.md                         # Este arquivo
-└── .github/copilot-instructions.md  # Documentação técnica detalhada
 ```
 
 ---
